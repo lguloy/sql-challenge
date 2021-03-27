@@ -1,0 +1,59 @@
+
+DROP TABLE IF EXISTS TITLES CASCADE;
+CREATE TABLE TITLES (
+	title_id VARCHAR(30),
+	title VARCHAR(30),
+	PRIMARY KEY (title_id)
+	);
+
+SELECT * FROM TITLES;
+
+DROP TABLE IF EXISTS EMPLOYEES CASCADE;
+CREATE TABLE EMPLOYEES (
+	emp_no INTEGER,
+	emp_title VARCHAR(30),
+	birth_date VARCHAR(30),
+	first_name VARCHAR(30),
+	last_name VARCHAR(30),
+	sex VARCHAR(30),
+	hire_date DATE,
+	PRIMARY KEY (emp_no),
+	FOREIGN KEY (emp_title) REFERENCES TITLES(title_id)
+	);
+SELECT * FROM EMPLOYEES
+
+DROP TABLE IF EXISTS departments;
+CREATE TABLE departments (
+	dept_no VARCHAR(30),
+	PRIMARY KEY (dept_no),
+	dept_name VARCHAR(30)
+	);
+SELECT * FROM departments;
+
+DROP TABLE IF EXISTS DEPT_EMP;
+CREATE TABLE DEPT_EMP (
+	emp_no INTEGER,
+	dept_no VARCHAR(30),
+	PRIMARY KEY (emp_no,dept_no),
+	FOREIGN KEY (emp_no) REFERENCES EMPLOYEES(emp_no),
+	FOREIGN KEY (dept_no) REFERENCES departments(dept_no)
+	);
+SELECT * FROM DEPT_EMP;
+
+DROP TABLE IF EXISTS DEPT_MANAGER;
+CREATE TABLE DEPT_MANAGER (
+	dept_no VARCHAR(30),
+	emp_no INTEGER,
+	PRIMARY KEY (emp_no),
+	FOREIGN KEY (emp_no) REFERENCES EMPLOYEES(emp_no),
+	FOREIGN KEY (dept_no) REFERENCES departments(dept_no)
+	);
+SELECT * FROM DEPT_MANAGER;
+
+DROP TABLE IF EXISTS SALARIES;
+CREATE TABLE SALARIES (
+	emp_no INTEGER,
+	PRIMARY KEY (emp_no),
+	salary INTEGER,
+	FOREIGN KEY (emp_no) REFERENCES EMPLOYEES(emp_no)
+	);
